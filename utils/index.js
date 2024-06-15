@@ -110,7 +110,7 @@ export const sendEmail = async (to, subject, text, template, context) => {
 
   const mailOptions = {
     from: {
-      name: 'New App',
+      name: 'Fitness+',
       address: process.env.NODEMAILER_MAIL
     },
     to: Array.isArray(to) ? to.join(', ') : to,

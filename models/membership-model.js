@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 
 const membershipSchema = new Schema({
   membershipId: {
@@ -46,7 +46,7 @@ const membershipSchema = new Schema({
     default: true,
   },
 }, {
-  timestamps: true, // Add createdAt and updatedAt fields
-});
+  timestamps: true, 
+})
 
-module.exports = mongoose.model('Membership', membershipSchema);
+export const Membership = mongoose.model('Membership', membershipSchema)

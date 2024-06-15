@@ -8,6 +8,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import morgan from 'morgan'
 import rateLimit from 'express-rate-limit'
+import { membershipRoutes } from './routes/membership-routes'
 
 const app = express()
 const port = process.env.PORT
@@ -27,10 +28,22 @@ let limiter = rateLimit({
 app.use('/api', limiter)
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-
+// Middleware to parse date strings into Date objects
+app.use((req, res, next) => {
+  if (req.body.startDate) {
+    req.body.startDate = new Date(req.body.startDate);
+  }
+  if (req.body.dueDate) {
+    req.body.dueDate = new Date(req.body.dueDate);
+  }
+  if (req.body.monthlyDueDate) {
+    req.body.monthlyDueDate = new Date(req.body.monthlyDueDate);
+  }
+  next();
+});
 // cors config
 const corsOptions = {
-  origin: ['http://localhost:5000'],
+  origin: ['http://localhost:3000'],
   optionsSuccessStatus: 200,
   credentiasl: true,  
 }
@@ -39,6 +52,7 @@ app.use(cors(corsOptions))
 
 // routes
 app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1/member', membershipRoutes)
 
 // home
 app.get('/', (req, res) => {
