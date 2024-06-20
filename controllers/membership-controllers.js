@@ -4,9 +4,9 @@ import cron from "node-cron";
 import { sendEmail } from "../utils";
 
 function generateMembershipId() {
-  const randomNumber = Math.floor(Math.random() * 10000);
-  const paddedNumber = randomNumber.toString().padStart(4, "0");
-  return `member${paddedNumber}`;
+  const randomNumber = Math.floor(Math.random() * 10000)
+  const paddedNumber = randomNumber.toString().padStart(4, "0")
+  return `member${paddedNumber}`
 }
 
 export const createMembership = async (req, res) => {
@@ -29,7 +29,7 @@ export const createMembership = async (req, res) => {
         .json({
           success: false,
           message: "Member with this email already exists",
-        });
+        })
     }
     const newMember = Membership({
       membershipId: generateMembershipId(),
@@ -42,8 +42,8 @@ export const createMembership = async (req, res) => {
       monthlyDueDate,
       totalAmount,
       monthlyAmount,
-    });
-    const savedMember = await newMember.save();
+    })
+    const savedMember = await newMember.save()
     res
       .status(201)
       .json({
@@ -52,9 +52,9 @@ export const createMembership = async (req, res) => {
         savedMember,
       });
   } catch (error) {
-    handleErrors(error, res);
+    handleErrors(error, res)
   }
-};
+}
 
 // Cron job to check for upcoming due dates
 cron.schedule("* * * * *", async () => {
@@ -81,7 +81,7 @@ cron.schedule("* * * * *", async () => {
 
     if (memberships.length > 0) {
       memberships.forEach(async (membership) => {
-        let subject, body;
+        let subject, html;
         if (membership.isFirstMonth) {
           subject = `Fitness+ Membership Reminder - ${membership.membershipType}`
           html = `<p>Dear ${membership.firstName},</p>
@@ -101,7 +101,7 @@ cron.schedule("* * * * *", async () => {
         console.log("Sending email to:", membership.email)
         const email = membership.email
 
-        await sendEmail(email, subject, body )
+        await sendEmail(email, subject, html )
 
         await membership.save()
       })
