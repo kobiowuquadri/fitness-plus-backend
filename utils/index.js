@@ -96,7 +96,7 @@ const createTransporter = () => {
   })
 }
 
-export const sendEmail = async (to, subject, text,  html, context) => {
+export const sendEmail = async (to, subject, html) => {
   const transporter = createTransporter()
 
 
@@ -107,8 +107,7 @@ export const sendEmail = async (to, subject, text,  html, context) => {
     },
     to: Array.isArray(to) ? to.join(', ') : to,
     subject: subject,
-    html: html,
-    context : context
+    html: html
   }
 
   try {

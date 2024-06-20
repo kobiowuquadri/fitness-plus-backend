@@ -4,9 +4,9 @@ import cron from "node-cron";
 import { sendEmail } from "../utils";
 
 function generateMembershipId() {
-  const randomNumber = Math.floor(Math.random() * 10000)
-  const paddedNumber = randomNumber.toString().padStart(4, "0")
-  return `member${paddedNumber}`
+  const randomNumber = Math.floor(Math.random() * 10000);
+  const paddedNumber = randomNumber.toString().padStart(4, "0");
+  return `member${paddedNumber}`;
 }
 
 export const createMembership = async (req, res) => {
@@ -22,7 +22,7 @@ export const createMembership = async (req, res) => {
       totalAmount,
       monthlyAmount,
     } = req.body;
-    const existingMember = await Membership.findOne({ email });
+    const existingMember = await Membership.findOne({ email })
     if (existingMember) {
       return res
         .status(400)
@@ -76,37 +76,35 @@ cron.schedule("* * * * *", async () => {
         },
         { monthlyDueDate: { $eq: new Date(today) }, isFirstMonth: false },
       ],
-    });
+    })
     console.log("memberships found:", memberships.length)
 
     if (memberships.length > 0) {
       memberships.forEach(async (membership) => {
-        let subject, context, html;
+        let subject, body;
         if (membership.isFirstMonth) {
           subject = `Fitness+ Membership Reminder - ${membership.membershipType}`
-          (html = `<p>Dear ${membership.firstName},</p>
+          html = `<p>Dear ${membership.firstName},</p>
           <p>This is a reminder that your annual membership fee of ${
             membership.totalAmount
           } and first month's add-on service charges are due on ${
             membership.dueDate.toISOString().split("T")[0]
           }.</p>
-          <p>Thank you for being a part of Fitness+!</p>`),
-            (membership.isFirstMonth = false);
+          <p>Thank you for being a part of Fitness+!</p>`
+          membership.isFirstMonth = false
         } else {
           subject = `Fitness+ Membership Reminder - Add-on Services`
-          html = `
-  <p>Dear ${membership.firstName},</p>
-<p>This is a reminder that your add-on service charges of ${membership.monthlyAmount} are due this month.</p>
-<p>Thank you for being a part of Fitness+!</p>
-`;
+          html = `<p>Dear ${membership.firstName},</p>
+          <p>This is a reminder that your add-on service charges of ${membership.monthlyAmount} are due this month.</p>
+          <p>Thank you for being a part of Fitness+!</p>`
         }
         console.log("Sending email to:", membership.email)
         const email = membership.email
 
-        await sendEmail(email, subject, html, context, html)
+        await sendEmail(email, subject, body )
 
-        await membership.save();
-      });
+        await membership.save()
+      })
     } else {
       console.log("No memberships found for reminder.")
     }
