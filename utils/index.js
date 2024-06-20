@@ -96,17 +96,9 @@ const createTransporter = () => {
   })
 }
 
-export const sendEmail = async (to, subject, text, template, context) => {
+export const sendEmail = async (to, subject, text,  html, context) => {
   const transporter = createTransporter()
 
-  const hbsOptions = {
-    viewEngine: { 
-      defaultLayout: false
-    },
-    viewPath: 'views'
-  }
-
-  transporter.use('compile', hbs(hbsOptions))
 
   const mailOptions = {
     from: {
@@ -115,8 +107,7 @@ export const sendEmail = async (to, subject, text, template, context) => {
     },
     to: Array.isArray(to) ? to.join(', ') : to,
     subject: subject,
-    text: text,
-    template: template,
+    html: html,
     context : context
   }
 
