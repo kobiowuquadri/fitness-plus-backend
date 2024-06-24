@@ -62,7 +62,7 @@ This project implements a backend system to handle the membership and billing sc
 
 ### Create Membership
 
-- **URL**: `/api/v1/member/membership`
+- **URL**: `https://fitness-plus-backend.onrender.com/api/v1/member/membership`
 - **Method**: `POST`
 - **Description**: Create a new gym membership.
 - **Request Body**:
@@ -79,7 +79,7 @@ This project implements a backend system to handle the membership and billing sc
     "monthlyAmount": 500
   }
 
-1. **Clone the repository**: `git clone git clone https://github.com/kobiowuquadri/express-mvc-starter.git`
+1. **Clone the repository**: `git clone https://github.com/kobiowuquadri/express-mvc-starter.git`
 
 2. **Install dependencies**: `npm install`
 3. **Create a `.env` file** and configure your environment variables, check `.env.example` for the sample
