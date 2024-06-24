@@ -68,20 +68,21 @@ This project implements a backend system to handle the membership and billing sc
 - **Request Body**:
   ```json
   {
-    "email": "user@example.com",
-    "firstName": "John",
-    "lastName": "Doe",
+    "email": "example@gmail.com",
+    "firstName": "Test",
+    "lastName": "Tester",
     "membershipType": "Annual Basic",
-    "startDate": "2023-06-01",
-    "dueDate": "2024-06-01",
-    "monthlyDueDate": "2023-07-01",
-    "totalAmount": 1200,
-    "monthlyAmount": 100
+    "startDate": "2024-06-14",
+    "dueDate": "2024-06-27",
+    "monthlyDueDate": "2024-06-20", 
+    "totalAmount": 1500,
+    "monthlyAmount": 500
   }
 
-1. **Clone the repository**: `git clone [[https://github.com/kobiowuquadri/fitness-plus-backend.git]]`
+1. **Clone the repository**: `git clone git clone https://github.com/kobiowuquadri/express-mvc-starter.git`
+
 2. **Install dependencies**: `npm install`
-3. **Create a `.env` file** and configure your environment variables
+3. **Create a `.env` file** and configure your environment variables, check `.env.example` for the sample
               
 4. **Start the server**: `npm run dev`
 
