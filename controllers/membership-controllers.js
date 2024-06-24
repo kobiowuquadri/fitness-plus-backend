@@ -63,9 +63,9 @@ cron.schedule("* * * * *", async () => {
   reminderDate.setDate(reminderDate.getDate() + 7)
   const formattedReminderDate = reminderDate.toISOString().split("T")[0]
 
-  console.log("today", today)
-  console.log("reminder date", reminderDate)
-  console.log("formatted reminder date", formattedReminderDate)
+  // console.log("today", today)
+  // console.log("reminder date", reminderDate)
+  // console.log("formatted reminder date", formattedReminderDate)
 
   try {
     const memberships = await Membership.find({
@@ -77,7 +77,7 @@ cron.schedule("* * * * *", async () => {
         { monthlyDueDate: { $eq: new Date(today) }, isFirstMonth: false },
       ],
     })
-    console.log("memberships found:", memberships.length)
+    // console.log("memberships found:", memberships.length)
 
     if (memberships.length > 0) {
       memberships.forEach(async (membership) => {
@@ -106,9 +106,9 @@ cron.schedule("* * * * *", async () => {
         await membership.save()
       })
     } else {
-      console.log("No memberships found for reminder.")
+      return res.status(404).json({success: false, message: "No memberships found for reminder." }) 
     }
   } catch (error) {
-    console.error("Error processing memberships:", error)
+   handleErrors(error, res)
   }
 })
