@@ -1,6 +1,4 @@
-# Porchplus Backend Developer Role Technical Assessment
-
-Thank you for your interest in the Backend Developer role at Porchplus! This take-home test is designed to assess your skills and problem-solving abilities in a backend development context.
+# Backend Developer Role Technical Assessment
 
 ## Scenario
 
@@ -11,7 +9,7 @@ Fitness+ offers gym memberships with various billing structures. Some membership
 
 ## Task
 
-Develop a backend system that implements the following functionalities based on your expertise in these frameworks to build a robust and scalable backend API. Consider Nest.js, PostgreSQL, well-documented RESTful APIs, and you can use your Gmail SMTP server to send out the mails.
+Develop a backend system that implements the following functionalities based on your expertise in these frameworks to build a robust and scalable backend API. Consider Express.js and MongoDB, well-documented RESTful APIs, and you can use your Gmail SMTP server to send out the mails.
 
 ### 1. Data Model
 
@@ -52,32 +50,34 @@ Implement a mechanism to send email reminders using an email service provider (E
 - **Subject**: Fitness+ Membership Reminder - [Membership Type]
 - **Body**: A message reminding the member about the upcoming payment, including the membership details (type, due date for annual or month for add-on services), and a link to the relevant invoice. Clearly differentiate between the first month's combined invoice and subsequent month's add-on service invoices in the message.
 
-## Evaluation Criteria
 
-Your code will be evaluated based on the following criteria:
+## Solution Overview
 
-- **Correctness**: Does the system correctly identify upcoming due dates and send reminder emails considering the first-month combined invoice and subsequent monthly add-on service charges?
-- **Code Quality**: Is the code well-structured, documented, and easy to understand?
-- **Error Handling**: Does the system handle potential errors gracefully, such as issues with the database connection or email delivery?
-- **Scalability**: Can the system be easily scaled to handle a large number of memberships and members?
-- **Testing**: Have you included unit tests to ensure the functionality of your code?
+This project implements a backend system to handle the membership and billing scenarios described above. It includes:
+1. A data model to store membership information.
+2. A cron job to send email reminders for upcoming payments.
+3. Email functionality to send reminders using a Gmail SMTP server.
 
-## Additional Notes
+## Endpoints
 
-- You are free to use any libraries or frameworks that you are comfortable with.
-- Feel free to make any assumptions you need about the data format or external integrations (e.g., database schema, email service provider API). Just document your assumptions clearly.
-- You can focus on the core functionalities and leave out aspects like user login or invoice management for this assessment.
+### Create Membership
 
-## Submission Guidelines
-
-- Given the competing demands on your time, we understand that this assessment might require more flexibility. While we initially estimated 4-6 hours for completion, we are happy to accept submissions by 10:00 PM on Saturday, June 15th.
-- Please submit your code along with a README file explaining your design choices, implementation details, and any assumptions you made. You can submit your code via a link to a public repository (GitHub).
-
-## Dataset
-
-An incomplete dataset of 40 members will be shared alongside this assessment.
-
-## Getting Started
+- **URL**: `/api/v1/member/membership`
+- **Method**: `POST`
+- **Description**: Create a new gym membership.
+- **Request Body**:
+  ```json
+  {
+    "email": "user@example.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "membershipType": "Annual Basic",
+    "startDate": "2023-06-01",
+    "dueDate": "2024-06-01",
+    "monthlyDueDate": "2023-07-01",
+    "totalAmount": 1200,
+    "monthlyAmount": 100
+  }
 
 1. **Clone the repository**: `git clone [[repository link]](https://github.com/kobiowuquadri/fitness-plus-backend.git)`
 2. **Install dependencies**: `npm install`
