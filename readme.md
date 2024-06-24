@@ -79,9 +79,10 @@ This project implements a backend system to handle the membership and billing sc
     "monthlyAmount": 100
   }
 
-1. **Clone the repository**: `git clone [[repository link]](https://github.com/kobiowuquadri/fitness-plus-backend.git)`
+1. **Clone the repository**: `git clone [[https://github.com/kobiowuquadri/fitness-plus-backend.git]]`
 2. **Install dependencies**: `npm install`
 3. **Create a `.env` file** and configure your environment variables
+              
 4. **Start the server**: `npm run dev`
 
 ## Contributing

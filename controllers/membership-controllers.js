@@ -1,7 +1,7 @@
-import { Membership } from "../models/membership-model";
-import { handleErrors } from "../middlewares/errorHandler";
+import { Membership } from "../models/membership-model.js";
+import { handleErrors } from "../middlewares/errorHandler.js";
 import cron from "node-cron";
-import { sendEmail } from "../utils";
+import { sendEmail } from "../utils/index.js";
 
 function generateMembershipId() {
   const randomNumber = Math.floor(Math.random() * 10000)
